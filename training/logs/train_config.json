@@ -1,0 +1,10 @@
+{
+  "base_model": "distilbert/distilbert-base-uncased",
+  "train_samples": 50000,
+  "train_features": 50528,
+  "epochs": 1.0,
+  "batch_size": 16,
+  "learning_rate": 3e-05,
+  "max_seq_length": 384,
+  "doc_stride": 128
+}
