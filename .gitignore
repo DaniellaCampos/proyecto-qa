@@ -1,0 +1,20 @@
+# Entorno virtual de Python (cada persona crea el suyo)
+.venv/
+venv/
+
+# Contraseñas y tokens: NUNCA se suben (regla 4 del PDF)
+.env
+
+# Pesos del modelo: pesan mucho, se comparten por Drive o release
+models/
+checkpoints/
+*.safetensors
+*.bin
+*.pt
+
+# Archivos temporales de Python
+__pycache__/
+*.pyc
+
+# Datos descargados (se pueden volver a bajar)
+data/
