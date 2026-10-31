@@ -1,0 +1,8 @@
+# PyTorch se instala aparte (ver el manual): con GPU usa la version cu128, sin GPU la normal.
+transformers
+datasets
+accelerate
+matplotlib
+fastapi
+uvicorn
+requests
