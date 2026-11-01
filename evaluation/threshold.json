@@ -1,0 +1,10 @@
+{
+  "threshold": -1.224,
+  "eval_samples": 2000,
+  "exact_match": 0.5865,
+  "f1": 0.6095,
+  "exact_match_threshold_0": 0.559,
+  "f1_threshold_0": 0.5933,
+  "always_null_exact_match": 0.4895,
+  "unanswerable_ratio": 0.4895
+}
