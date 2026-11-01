@@ -36,7 +36,8 @@ class ApiError(Exception):
 
 
 class PredictRequest(BaseModel):
-    model_config = ConfigDict(strict=True)
+    # extra="forbid": campos extra -> 400 (contrato: additionalProperties: false)
+    model_config = ConfigDict(strict=True, extra="forbid")
     id: str = Field(min_length=1, max_length=64)
     context: str = Field(min_length=1, max_length=5000)
     question: str = Field(min_length=1, max_length=500)
