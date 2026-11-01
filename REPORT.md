@@ -39,13 +39,35 @@ Unanswerable questions are trained to point at the `[CLS]` token (position 0). L
 
 **Loss curve:** the training loss went down from 5.94 at the start to 1.52 at the end (average 1.90), so the model learned the task. Full log: `training/logs/log_history.json`.
 
-**Validation results:** (Persona 2)
+**Validation results** (script: evaluation/choose_threshold.py, results saved in evaluation/threshold.json):
+
+We evaluated on a random subset of 2000 questions from the SQuAD 2.0 validation set (seed 0), which the model never saw during training. About 48.95% of them are unanswerable.
+
+| Metric | Value |
+|---|---|
+| Exact Match (tuned threshold) | 0.5865 |
+| F1 (tuned threshold) | 0.6095 |
+| Exact Match (threshold = 0) | 0.5590 |
+| F1 (threshold = 0) | 0.5933 |
+| Always-null baseline (Exact Match) | 0.4895 |
+
+The model clearly beats the always-null baseline, and tuning the no-answer threshold improved Exact Match from 0.5590 to 0.5865.
 
 ![Loss curve](training/logs/loss_curve.png)
 
 ## How we chose the no-answer threshold
 
-<!-- Persona 2 -->
+For every question, the model produces two scores:
+- **null score**: start logit + end logit of the [CLS] token (the "no answer" option). For long contexts split into several windows, we take the minimum null score across windows.
+- **best span score**: the highest start logit + end logit among valid spans inside the context (end after start, at most 30 tokens, searching the top 20 start and end positions).
+
+We compute diff = null_score - best_span_score. If diff > threshold, the service answers 
+ull; otherwise it returns the best span.
+
+To choose the threshold, we ran the model once on 2000 SQuAD 2.0 validation questions, stored each question's diff, and then tried every observed diff value as a candidate threshold. We kept the one with the highest Exact Match (F1 as a tie-breaker), where a correct 
+ull on an unanswerable question counts as a correct answer. This is the same way the instructor scores each item.
+
+The chosen threshold is **-1.224** (Exact Match 0.5865, F1 0.6095), compared to Exact Match 0.5590 with the default threshold of 0. The value is saved in evaluation/threshold.json, and the API reads it at startup, so evaluation and serving use exactly the same decision rule (shared code in qa_core.py).
 
 ## Serving architecture and tunnel
 
