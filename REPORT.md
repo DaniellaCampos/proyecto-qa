@@ -133,6 +133,9 @@ Every request is far below the 5 s timeout, so the main risk on presentation day
 
 <!-- Everyone adds their own -->
 
+1. **Problem:** the API could not start on the CPU laptop because `models/qa-distilbert` did not exist: the team manual expected a file `qa-distilbert.zip`, but the trained model was shared on Google Drive as a folder of 5 files. **Cause:** the model is not in GitHub (it is ignored by `.gitignore`, as the rules require), so every member has to download it separately, and Drive serves a folder as an automatically generated zip with a different name (`qa-distilbert-<date>-1-001.zip`). **Fix:** download the whole Drive folder, extract it into `models/` (the zip already contains the `qa-distilbert/` folder) and check that `models/qa-distilbert/config.json` exists before running uvicorn. The "How to run" steps above describe this. **Commit:** `d227cd3`
+2. **Problem:** in the threshold section of this report, the word `null` was shown broken across two lines as "ull". **Cause:** the text was written with `\n` before "ull", which some tools convert into a line break. **Fix:** we wrote it as inline code (`` `null` ``). **Commit:** `d227cd3`
+
 ## Decoder investigation
 
 <!-- Persona 4 -->
