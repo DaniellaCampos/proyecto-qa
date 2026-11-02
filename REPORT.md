@@ -9,7 +9,7 @@
 | Repository URL | https://github.com/DaniellaCampos/proyecto-qa |
 | `submission` commit hash | The commit tagged `submission` (a commit cannot contain its own hash; we send the hash together with the repository URL) |
 | Public service URL used at the dry run | https://hallowedly-miasmatical-leda.ngrok-free.dev (ngrok, free plan) |
-| AI tools used (which, and for what) | Claude (Anthropic): repository review, drafting and editing this report, and the fix that rejects extra fields in `/predict`. TO CONFIRM: tools used by the other members, and for what. |
+| AI tools used (which, and for what) | **Training (Daniella Campos):** Claude Code, to understand the brief, generate `training/train.py` and fix library version errors. **Evaluation and threshold (Rebeca Castro):** Gemini, for technical support setting up Google Colab with a T4 GPU, checking dependencies and running `evaluation/choose_threshold.py`. **API and tests (Rodrigo Marroquin):** Claude Code, as an assistant to run `tests.check_api`, test edge cases (invalid JSON, empty fields, contexts over 5000 characters, lowercase `bearer`), measure CPU latency and draft report sections. **Tunnel, report and submission (Aracely Varela):** Claude, to review the repository, guide the ngrok setup and dry run, fix the extra-fields validation in `/predict` and adapt this report to the template. The model runs locally; no AI API is called by the service. |
 
 ## 1. Model choice and justification
 
